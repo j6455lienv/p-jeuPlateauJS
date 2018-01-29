@@ -10,7 +10,7 @@ $(function () { //attendre que la page soit totalement chargée
         var color;
         var booleanRandom = Math.floor(Math.random() * nbCol); //randomisation, est égale à un nombre entre 0 et nbCol passé en parametre lors de l'instanciation map
         //        console.log("Nombre boolean = "+booleanRandom);
-        if (booleanRandom == 0 || booleanRandom == 1 || booleanRandom == 2) //permet d'avoir que 30% de case grisées
+        if (booleanRandom == 0 || booleanRandom == 1 /*|| booleanRandom == 2*/) //permet d'avoir que 30% de case grisées
         {
             color = 'grey';
         } else {
@@ -45,15 +45,28 @@ $(function () { //attendre que la page soit totalement chargée
         console.log("id tronconneuse : " + tro.id);
         //****intialisation id arme OK****//
 
+        //creation d'un tableau
+        var tab = [];
+        
         for (var i = 0; i < nbRow; i++) {
 
             var trElt = document.createElement('tr');
             tbodyElt.appendChild(trElt);
-
+            
+            //creation d'un deuxieme tableau 'row'
+            var tabRow = [];
+            
             for (var j = 0; j < nbCol; j++) {
                 var tdElt = document.createElement('td');
                 tdElt.id = i + "-" + j;
-
+//                tdElt.innerHTML = i + "-" + j;
+//                console.log('row : '+i+' col : '+j+' => '+parseInt(tdElt.id));
+                
+//                var strToIntNb1 = parseInt(tdElt.id.substring(0,1));
+//                var strToIntNb2 = parseInt(tdElt.id.substring(2,3));
+//                console.log('nb1 de row : '+i+' col : '+j+' => '+strToIntNb1);
+//                console.log('nb2 de row : '+i+' col : '+j+' => '+strToIntNb2);
+                
                 //insertion des armes dans la map
                 if (tdElt.id == cou.id) {
                     tdElt.style.backgroundColor = 'none';
@@ -84,9 +97,18 @@ $(function () { //attendre que la page soit totalement chargée
                 else {
                     tdElt.style.backgroundColor = getRandomColor(nbCol);
                 }
+                
+                //on peuple une ligne jusqu'à la fin de tour de boucle
+                tabRow.push(tdElt.id);
                 trElt.appendChild(tdElt);
+                
             }
+            //chaque ligne cree vient peupler le tableau initial pour avoir un tableau de tableau
+            tab.push(tabRow);
         }
+        console.log(tab);//tableau 2D en console
+        //console.write(tab);
+
     }
 
     //gestion du DOM
@@ -94,7 +116,6 @@ $(function () { //attendre que la page soit totalement chargée
     var tableElt = document.createElement('table');
     tableElt.className = 'table table-bordered';
     var tbodyElt = document.createElement('tbody');
-
     tableElt.appendChild(tbodyElt);
     getDivElt.appendChild(tableElt);
 
