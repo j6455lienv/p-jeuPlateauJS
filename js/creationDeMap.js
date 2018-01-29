@@ -1,4 +1,4 @@
-$(function () { //attendre que la page soit totalement chargée
+//$(function () { //attendre que la page soit totalement chargée
 
     var cou = new Couteau();
     var pis = new Pistolet();
@@ -57,9 +57,16 @@ $(function () { //attendre que la page soit totalement chargée
             var tabRow = [];
             
             for (var j = 0; j < nbCol; j++) {
+                
                 var tdElt = document.createElement('td');
                 tdElt.id = i + "-" + j;
-//                tdElt.innerHTML = i + "-" + j;
+                tdElt.innerHTML = i + "-" + j;
+                trElt.addEventListener = ("click", function(){
+                    console.log(this.id);
+                },true);
+//                trElt.onclick = function(){
+//                    console.log(trElt.id);
+//                }
 //                console.log('row : '+i+' col : '+j+' => '+parseInt(tdElt.id));
                 
 //                var strToIntNb1 = parseInt(tdElt.id.substring(0,1));
@@ -101,13 +108,12 @@ $(function () { //attendre que la page soit totalement chargée
                 //on peuple une ligne jusqu'à la fin de tour de boucle
                 tabRow.push(tdElt.id);
                 trElt.appendChild(tdElt);
-                
             }
             //chaque ligne cree vient peupler le tableau initial pour avoir un tableau de tableau
             tab.push(tabRow);
         }
         console.log(tab);//tableau 2D en console
-        //console.write(tab);
+        //document.write(tab);
 
     }
 
@@ -121,4 +127,4 @@ $(function () { //attendre que la page soit totalement chargée
 
     //Instanciation d'une nouvelle map 
     creerMap(10, 10);
-});
+//});

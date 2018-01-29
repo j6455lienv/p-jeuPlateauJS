@@ -7,6 +7,7 @@ console.log('Nom du couteau : ' + cout.name);
 console.log('Degat du couteau : ' + cout.degat);
 console.log(cout.infligerDegat());
 console.log('Resistance du couteau : ' + cout.resistance);
+console.log(cout.armeCassee());
 console.log('...');
 
 console.log('Nom du pistolet : ' + pis.name);

@@ -3,13 +3,14 @@ class Armes {
         this.resistance = 100;
         this.id = '';
     }
-
+    setId(id){
+        this.id = id;
+    }
     infligerDegat() {
         return 'Vous avez infligé ' + this.degat + ' points de dégat avec l\'arme : ' + this.name;
     }
-    
-    setId(id){
-        this.id = id;
+    armeCassee(){
+        return 'Vous avez cassé votre arme, résistance de l\'arme : '+this.resistance;   
     }
 }
 
