@@ -2,20 +2,9 @@ class Armes {
     constructor(id) {
         this.resistance = 100;
         this.id = id;
-        this.axeX = parseInt(id.substring(0,1));
-        this.axeY = parseInt(id.substring(2,3));
+        this.intRow = parseInt(id.substring(0,1));
+        this.intCol = parseInt(id.substring(2,3));
     }
-
-    // //permet de parser l'id sur l'axe des X pour avoir un Int de 1 charactere
-    // coordonneesParseAxeX(id){
-    //     var axeXCoordonnee = parseInt(id.substring(0,1));
-    //     return axeXCoordonnee;
-    // }
-    //
-    // coordonneesParseAxeY(id){
-    //     var axeYCoordonnee = parseInt(id.substring(2,3));
-    //     return axeYCoordonnee;
-    // }
 
     infligerDegat() {
         return 'Vous avez infligé ' + this.degat + ' points de dégat avec l\'arme : ' + this.name;
@@ -23,7 +12,7 @@ class Armes {
     armeCassee(){
         return 'Vous avez cassé votre arme, résistance de l\'arme : '+this.resistance;   
     }
-}
+}   
 
 class Batte extends Armes {
     constructor(id) {

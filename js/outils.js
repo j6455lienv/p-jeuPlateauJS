@@ -1,14 +1,5 @@
 class Outils{
 
-    // //Create a set of Weapons
-    // static setOfWeapons(){
-    //     var couteauObj = new Couteau();
-    //     var pistoletObj = new Pistolet();
-    //     var batteObj = new Batte();
-    //     var tronconneuseObj = new Tronconneuse();
-    //     return couteauObj, pistoletObj, batteObj, tronconneuseObj;
-    // }
-
     //Permet de retourner une Id unique au hasard
     static getRandomId(nbCol, nbRow) {
         var varId;
@@ -17,8 +8,6 @@ class Outils{
         varId = randomIdRow + "-" + randomIdCol;
         return varId;
     }
-    //test de la fonction getRandomIdMap(nbCol, nbRow)
-    //    console.log(getRandomIdMap(10,10));
 
     //Retourne couleur 'grey' ou 'none'
     static getRandomColor(nbCol) {
