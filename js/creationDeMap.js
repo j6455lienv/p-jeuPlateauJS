@@ -1,130 +1,102 @@
-//$(function () { //attendre que la page soit totalement chargée
+//creation de la Map
+function creerMap(nbCol, nbRow) {
 
-    var cou = new Couteau();
-    var pis = new Pistolet();
-    var bat = new Batte();
-    var tro = new Tronconneuse();
+    var couteauObj = new Couteau(Outils.getRandomId(nbCol, nbRow));
+    var pistoletObj = new Pistolet(Outils.getRandomId(nbCol, nbRow));
+    var batteObj = new Batte(Outils.getRandomId(nbCol, nbRow));
+    var tronconneuseObj = new Tronconneuse(Outils.getRandomId(nbCol, nbRow));
 
-    //Retourne couleur 'grey' ou 'none'
-    function getRandomColor(nbCol) {
-        var color;
-        var booleanRandom = Math.floor(Math.random() * nbCol); //randomisation, est égale à un nombre entre 0 et nbCol passé en parametre lors de l'instanciation map
-        //        console.log("Nombre boolean = "+booleanRandom);
-        if (booleanRandom == 0 || booleanRandom == 1 /*|| booleanRandom == 2*/) //permet d'avoir que 30% de case grisées
-        {
-            color = 'grey';
-        } else {
-            color = 'none';
-        }
-        return color;
-    }
+    console.log("id couteau : " + couteauObj.id);
+    console.log("id pistolet : " + pistoletObj.id);
+    console.log("id batte : " + batteObj.id);
+    console.log("id tronconneuse : " + tronconneuseObj.id);
+    //****intialisation id arme OK****//
+    // console.log('axe Y de couteauObj = '+couteauObj.coordonneesParseAxeY(couteauObj.id));
+    // console.log('axe X de couteauObj = '+couteauObj.coordonneesParseAxeX(couteauObj.id));
 
-    //Permet de retourner une Id unique au hasard
-    function getRandomIdMap(nbCol, nbRow) {
-        var varId;
-        var randomIdndCol = Math.floor(Math.random() * nbCol);
-        var randomIdnbRow = Math.floor(Math.random() * nbRow);;
-        varId = randomIdndCol + "-" + randomIdnbRow;
-        return varId;
-    }
-    //test de la fonction getRandomIdMap(nbCol, nbRow)
-    //    console.log(getRandomIdMap(10,10));
+    console.log('couteauObj => construct X : '+couteauObj.axeX +' et construct Y : '+ couteauObj.axeY);
+    console.log('pistoletObj => construct X : '+pistoletObj.axeX +' et construct Y : '+ pistoletObj.axeY);
+    console.log('batteObj => construct X : '+batteObj.axeX +' et construct Y : '+ batteObj.axeY);
+    console.log('tronconneuseObj => construct X : '+tronconneuseObj.axeX +' et construct Y : '+ tronconneuseObj.axeY);
 
-    //creation de la Map
-    function creerMap(nbCol, nbRow) {
 
-        //****initialisation des ID de chacunes de armes****//
-        cou.setId(getRandomIdMap(nbCol, nbRow));
-        pis.setId(getRandomIdMap(nbCol, nbRow));
-        bat.setId(getRandomIdMap(nbCol, nbRow));
-        tro.setId(getRandomIdMap(nbCol, nbRow));
-        //verification si les objets sont bien settés.
-        console.log("id couteau : " + cou.id);
-        console.log("id pistolet : " + pis.id);
-        console.log("id batte : " + bat.id);
-        console.log("id tronconneuse : " + tro.id);
-        //****intialisation id arme OK****//
+    //creation d'un tableau
+    var tab = [];
 
-        //creation d'un tableau
-        var tab = [];
-        
-        for (var i = 0; i < nbRow; i++) {
+    for (var i = 0; i < nbRow; i++) {
 
-            var trElt = document.createElement('tr');
-            tbodyElt.appendChild(trElt);
-            
-            //creation d'un deuxieme tableau 'row'
-            var tabRow = [];
-            
-            for (var j = 0; j < nbCol; j++) {
-                
-                var tdElt = document.createElement('td');
-                tdElt.id = i + "-" + j;
-                tdElt.innerHTML = i + "-" + j;
-                trElt.addEventListener = ("click", function(){
-                    console.log(this.id);
-                },true);
+        var trElt = document.createElement('tr');
+        tbodyElt.appendChild(trElt);
+
+        //creation d'un deuxieme tableau 'row'
+        var tabRow = [];
+
+        for (var j = 0; j < nbCol; j++) {
+
+            var tdElt = document.createElement('td');
+            tdElt.id = i + "-" + j;
+            //tdElt.innerHTML = i + "-" + j;
+            tdElt.addEventListener("click", function () {
+                console.log('this.id = ' + this.id + ', this.backgroundColor = ' + this.style.backgroundColor);
+            }, false);
 //                trElt.onclick = function(){
 //                    console.log(trElt.id);
 //                }
 //                console.log('row : '+i+' col : '+j+' => '+parseInt(tdElt.id));
-                
+
 //                var strToIntNb1 = parseInt(tdElt.id.substring(0,1));
 //                var strToIntNb2 = parseInt(tdElt.id.substring(2,3));
-//                console.log('nb1 de row : '+i+' col : '+j+' => '+strToIntNb1);
-//                console.log('nb2 de row : '+i+' col : '+j+' => '+strToIntNb2);
-                
-                //insertion des armes dans la map
-                if (tdElt.id == cou.id) {
-                    tdElt.style.backgroundColor = 'none';
-                    var imgElt = document.createElement('img');
-                    imgElt.src = cou.image;
-                    tdElt.appendChild(imgElt);
-                } else if (tdElt.id == pis.id) {
-                    tdElt.style.backgroundColor = 'none';
-                    var imgElt = document.createElement('img');
-                    imgElt.src = pis.image;
-                    tdElt.appendChild(imgElt);
-                } else if (tdElt.id == bat.id) {
-                    tdElt.style.backgroundColor = 'none';
-                    var imgElt = document.createElement('img');
-                    imgElt.src = bat.image;
-                    tdElt.appendChild(imgElt);
-                } else if (tdElt.id == tro.id) {
-                    tdElt.style.backgroundColor = 'none';
-                    var imgElt = document.createElement('img');
-                    imgElt.src = tro.image;
-                    tdElt.appendChild(imgElt);
-                }
-                //                else if (tdElt.id == '9-9'){
-                //                    var imgElt = document.createElement('img');
-                //                    imgElt.src = tro.image;
-                //                    tdElt.appendChild(imgElt);
-                //                }
-                else {
-                    tdElt.style.backgroundColor = getRandomColor(nbCol);
-                }
-                
-                //on peuple une ligne jusqu'à la fin de tour de boucle
-                tabRow.push(tdElt.id);
-                trElt.appendChild(tdElt);
+
+            //insertion des armes dans la map
+            if (tdElt.id === couteauObj.id) {
+                tdElt.style.backgroundColor = 'none';
+                var imgElt = document.createElement('img');
+                imgElt.src = couteauObj.image;
+                tdElt.appendChild(imgElt);
+            } else if (tdElt.id === pistoletObj.id) {
+                tdElt.style.backgroundColor = 'none';
+                var imgElt = document.createElement('img');
+                imgElt.src = pistoletObj.image;
+                tdElt.appendChild(imgElt);
+            } else if (tdElt.id === batteObj.id) {
+                tdElt.style.backgroundColor = 'none';
+                var imgElt = document.createElement('img');
+                imgElt.src = batteObj.image;
+                tdElt.appendChild(imgElt);
+            } else if (tdElt.id === tronconneuseObj.id) {
+                tdElt.style.backgroundColor = 'none';
+                var imgElt = document.createElement('img');
+                imgElt.src = tronconneuseObj.image;
+                tdElt.appendChild(imgElt);
             }
-            //chaque ligne cree vient peupler le tableau initial pour avoir un tableau de tableau
-            tab.push(tabRow);
+            //                else if (tdElt.id == '9-9'){
+            //                    var imgElt = document.createElement('img');
+            //                    imgElt.src = tro.image;
+            //                    tdElt.appendChild(imgElt);
+            //                }
+            else {
+                tdElt.style.backgroundColor = Outils.getRandomColor(nbCol);
+            }
+
+            //on peuple une ligne jusqu'à la fin de tour de boucle
+            tabRow.push(tdElt.id);
+            trElt.appendChild(tdElt);
         }
-        console.log(tab);//tableau 2D en console
-        //document.write(tab);
-
+        //chaque ligne cree vient peupler le tableau initial pour avoir un tableau de tableau
+        tab.push(tabRow);
     }
+    console.log(tab);//tableau 2D en console
+    //document.write(tab);
+}
 
-    //gestion du DOM
-    var getDivElt = document.getElementById('jeu');
-    var tableElt = document.createElement('table');
-    tableElt.className = 'table table-bordered';
-    var tbodyElt = document.createElement('tbody');
-    tableElt.appendChild(tbodyElt);
-    getDivElt.appendChild(tableElt);
+//gestion du DOM
+var getDivElt = document.getElementById('jeu');
+var tableElt = document.createElement('table');
+tableElt.className = 'table table-bordered';
+var tbodyElt = document.createElement('tbody');
+tableElt.appendChild(tbodyElt);
+getDivElt.appendChild(tableElt);
 
-    //Instanciation d'une nouvelle map 
-    creerMap(10, 10);
+//Instanciation d'une nouvelle map
+creerMap(10, 10);
 //});
