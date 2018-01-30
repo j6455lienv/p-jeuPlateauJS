@@ -1,4 +1,4 @@
-class Outils{
+class Outils {
 
     //Permet de retourner une Id unique au hasard
     static getRandomId(nbCol, nbRow) {
