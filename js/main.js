@@ -1,11 +1,40 @@
-$(function () {
+function demarrer(nom_j1, typePerso_j1, nom_j2, typePerso_j2) {
+
+    document.getElementById('form').innerHTML = '';
+
+    console.log('nom_j1 = ' + nom_j1.value);
+    console.log('nom_j2 = ' + nom_j2.value);
+    console.log('typePerso_j1 = ' + typePerso_j1.value);
+    console.log('typePerso_j2 = ' + typePerso_j2.value);
+    console.log('...');
 
     //Initialisation d'un Jeu
     var game = new Game();
     game.creer(10, 10);
 
-    var perso1 = new Persos(Outils.getRandomId(game.nbCol, game.nbRow), 'Julien');
-    console.log('Nom du perso : ' + perso1.name);
+    //******************nouveau-creation d'instance perso depuis formulaire html***********//
+    if (typePerso_j1.value === 'Bourrin') {
+        var j1 = new Bourrin(Outils.getRandomId(game.nbCol, game.nbRow), nom_j1.value);
+    } else if (typePerso_j1.value === 'Mage') {
+        var j1 = new Mage(Outils.getRandomId(game.nbCol, game.nbRow), nom_j1.value);
+    } else {
+        alert('Le Joueur 1 n\'a pas choisis de type de personnage');
+    }
+
+    if (typePerso_j2.value === 'Bourrin') {
+        var j2 = new Bourrin(Outils.getRandomId(game.nbCol, game.nbRow), nom_j2.value);
+    } else if (typePerso_j2.value === 'Mage') {
+        var j2 = new Mage(Outils.getRandomId(game.nbCol, game.nbRow), nom_j2.value);
+    } else {
+        alert('Le Joueur 2 n\'a pas choisis de type de personnage');
+    }
+    console.log('-------Controle instance des joueurs-------')
+    console.log('Nom du j1 : ' + j1.name);
+    console.log('Type de j1 : ' + typePerso_j1.value);
+    console.log('Id de j1 : ' + j1.id);
+    console.log('...');
+    //*************************************************************************************//
+
     /**
      * Controle fonctionnement des objets Armes.
      * @type {Armes}
@@ -25,4 +54,4 @@ $(function () {
     console.log('Colonne du couteau hors scope Game : ' + hsCouteau.intCol);
     console.log('...');
 
-});
+}

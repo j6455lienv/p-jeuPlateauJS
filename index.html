@@ -9,23 +9,32 @@
 
 <body>
 
-<div id="jeu" class="container">
-    <h1>Jeu de Plateau All Front</h1>
-</div>
-
 <div class="container">
-    <table>
-        <tbody>
-        <tr>
-            <td><img src="img/bat.png"></td>
-            <td><img src="img/cou.jpg"></td>
-            <td><img src="img/pis.jpg"></td>
-            <td><img src="img/tro.png"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <div id="form" class="container">
 
+        <form>
+            <h3>Joueur 1</h3>
+            <p><label for="nom_j1">Nom : <input id="nom_j1" type="text"/></label></p>
+            <p><label for="typePerso_j1">Choisir un Bourrin : <input id="typePerso_j1" type="radio"
+                                                                     value="Bourrin"></label></p>
+            <p><label for="typePerso_j1">Choisir un Mage : <input id="typePerso_j1" type="radio" value="Mage"></label>
+            </p>
+
+            <h3>Joueur 2</h3>
+            <p><label for="nom_j2">Nom : <input id="nom_j2" type="text"/></label></p>
+            <p><label for="typePerso_j2">Choisir un Bourrin : <input id="typePerso_j2" type="radio"
+                                                                     value="Bourrin"></label></p>
+            <p><label for="typePerso_j2">Choisir un Mage : <input id="typePerso_j2" type="radio" value="Mage"></label>
+            </p>
+
+            <p><input type="submit" value="submit" onclick="demarrer(nom_j1, typePerso_j1, nom_j2, typePerso_j2)"/></p>
+        </form>
+
+    </div>
+
+    <div id="jeu" class="container">
+    </div>
+</div>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- jQuery library -->
