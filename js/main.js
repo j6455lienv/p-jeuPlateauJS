@@ -4,6 +4,8 @@ $(function () {
     var game = new Game();
     game.creer(10, 10);
 
+    var perso1 = new Persos(Outils.getRandomId(game.nbCol, game.nbRow), 'Julien');
+    console.log('Nom du perso : ' + perso1.name);
     /**
      * Controle fonctionnement des objets Armes.
      * @type {Armes}
