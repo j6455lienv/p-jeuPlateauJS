@@ -28,6 +28,7 @@ function demarrer(nom_j1, typePerso_j1, nom_j2, typePerso_j2) {
     } else {
         alert('Le Joueur 2 n\'a pas choisis de type de personnage');
     }
+
     console.log('-------Controle instance des joueurs-------')
     console.log('Nom du j1 : ' + j1.name);
     console.log('Type de j1 : ' + typePerso_j1.value);
