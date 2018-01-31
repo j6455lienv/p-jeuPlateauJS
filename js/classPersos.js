@@ -1,6 +1,8 @@
 class Persos {
     constructor(id, name) {
         this.id = id;
+        this.intRow = parseInt(id.substring(0, 1));
+        this.intCol = parseInt(id.substring(2, 3));
         this.name = name;
         this.sante = 160;
     }
@@ -13,8 +15,8 @@ class Bourrin extends Persos {
         this.image = "./img/perso4.png";
     }
 
-    attaqueSpecial() {
-        document.write('attaque spéciale du bourrin => rien pour le moment');
+    attaqueSpecial(){
+        console.log('attaque spéciale du bourrin => rien pour le moment');
     }
 
 }
@@ -25,11 +27,11 @@ class Mage extends Persos {
         this.image = "./img/perso2.jpg";
     }
 
-    attaqueSpecial() {
-        document.write('attaque spéciale du Mage => rien pour le moment');
+    attaqueSpecial(){
+        console.log('attaque spéciale du Mage => rien pour le moment');
     }
 
-    attaqueMagique() {
-        document.write('attaque Magique du Mage => rien pour le moment');
+    attaqueMagique(){
+        console.log('attaque Magique du Mage => rien pour le moment');
     }
 }
