@@ -14,7 +14,7 @@ class Outils {
         var color;
         var booleanRandom = Math.floor(Math.random() * nbCol); //randomisation, est égale à un nombre entre 0 et nbCol passé en parametre lors de l'instanciation map
         //        console.log("Nombre boolean = "+booleanRandom);
-        if (booleanRandom === 0 || booleanRandom === 1 /*|| booleanRandom == 2*/) //permet d'avoir que 30% de case grisées
+        if (booleanRandom === 0 || booleanRandom === 1 /*|| booleanRandom == 2*/ ) //permet d'avoir que 30% de case grisées
         {
             color = 'grey';
         } else {

@@ -12,7 +12,7 @@ class Bourrin extends Persos {
     constructor(id, name) {
         super(id, name);
         this.sante = 200;
-        this.image = "./img/perso4.png";
+        this.image = './img/perso4.png';
     }
 
     attaqueSpecial(){
@@ -24,7 +24,7 @@ class Bourrin extends Persos {
 class Mage extends Persos {
     constructor(id, name) {
         super(id, name);
-        this.image = "./img/perso2.jpg";
+        this.image = './img/perso2.jpg';
     }
 
     attaqueSpecial(){

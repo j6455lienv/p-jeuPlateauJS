@@ -1,8 +1,12 @@
 class Game {
     creer(nbCol, nbRow, nom_j1, typePerso_j1, nom_j2, typePerso_j2) {
-
+        
         this.nbCol = nbCol;
         this.nbRow = nbRow;
+        this.nom_j1 = nom_j1;
+        this.typePerso_j1 = typePerso_j1;
+        this.nom_j2 = nom_j2;
+        this.typePerso_j2 =typePerso_j2;        
 
         //gestion du DOM
         var getDivElt = document.getElementById('jeu');
@@ -11,57 +15,37 @@ class Game {
         var tbodyElt = document.createElement('tbody');
         tableElt.appendChild(tbodyElt);
         getDivElt.appendChild(tableElt);
-        //implementation buut reset
-
-        // var divButtElt = document.createElement('div');
-        // divButtElt.className = 'form-group row';
-        // var buttElt = document.createElement('input');
-        // buttElt.type = 'submit';
-        // buttElt.className = 'btn btn-primary';
-        // buttElt.value = 'Reset';
-        // buttElt.onclick = 'reset';
-        //
-        // divButtElt.appendChild(buttElt);
-        // getDivElt.appendChild(divButtElt);
-
-
-
-    //         <input type="submit" class="btn btn-primary" value="test"
-    //     onclick="demarrer(nom_j1, typePerso_j1, nom_j2, typePerso_j2)"/>
-
-
+        
         //instanciation joueurs
         //******************nouveau-creation d'instance perso depuis formulaire html***********//
-        if (typePerso_j1 === 'Bourrin') {
-            var j1 = new Bourrin(Outils.getRandomId(this.nbCol, this.nbRow), nom_j1);
-        } else if (typePerso_j1 === 'Mage') {
-            var j1 = new Mage(Outils.getRandomId(this.nbCol, this.nbRow), nom_j1);
-        } else {
-            alert('Le Joueur 1 n\'a pas choisis de type de personnage');
+        var j1 = '';
+        var j2 = '';
+        switch(this.typePerso_j1){
+            case 'Bourrin':j1 = new Bourrin(Outils.getRandomId(this.nbCol, this.nbRow), this.nom_j1);break;
+            case 'Mage':j1 = new Mage(Outils.getRandomId(this.nbCol, this.nbRow), this.nom_j1);break;
         }
-
-        if (typePerso_j2 === 'Bourrin') {
-            var j2 = new Bourrin(Outils.getRandomId(this.nbCol, this.nbRow), nom_j2);
-        } else if (typePerso_j2 === 'Mage') {
-            var j2 = new Mage(Outils.getRandomId(this.nbCol, this.nbRow), nom_j2);
-        } else {
-            alert('Le Joueur 2 n\'a pas choisis de type de personnage');
+        switch(this.typePerso_j2){
+            case 'Bourrin':j2 = new Bourrin(Outils.getRandomId(this.nbCol, this.nbRow), this.nom_j2);break;
+            case 'Mage':j2 = new Mage(Outils.getRandomId(this.nbCol, this.nbRow), this.nom_j2);break;
         }
 
         console.log('-------Controle instance des joueurs1-------');
         console.log('Nom du j1 : ' + j1.name);
-        console.log('Type de j1 : ' + typePerso_j1.value);
+        console.log('Type de j1 : ' + this.typePerso_j1);
         console.log('Id de j1 : ' + j1.id);
+        console.log('Img : ' + j1.image);
         console.log('...');
 
         console.log('-------Controle instance des joueurs2-------');
         console.log('Nom du j2 : ' + j2.name);
-        console.log('Type de j2 : ' + typePerso_j2.value);
+        console.log('Type de j2 : ' + this.typePerso_j2);
         console.log('Id de j2 : ' + j2.id);
+        console.log('Img : ' + j2.image);
         console.log('...');
         //*************************************************************************************//
 
         //instanciation armes
+        //**************************************************************************************//
         var couteauObj = new Couteau(Outils.getRandomId(nbCol, nbRow));
         var pistoletObj = new Pistolet(Outils.getRandomId(nbCol, nbRow));
         var batteObj = new Batte(Outils.getRandomId(nbCol, nbRow));
@@ -77,17 +61,23 @@ class Game {
         console.log('pistoletObj => construct Row : ' + pistoletObj.intRow + ' et construct Col : ' + pistoletObj.intCol);
         console.log('batteObj => construct Row : ' + batteObj.intRow + ' et construct Col : ' + batteObj.intCol);
         console.log('tronconneuseObj => construct Row : ' + tronconneuseObj.intRow + ' et construct Col : ' + tronconneuseObj.intCol);
+        //***************************************************************************************//
+        
+        var tab = [];//creation d'un tableau 'qui ne sert a rien pour le moment'
 
-        //creation d'un tableau
-        var tab = [];
-
+        function setArrayCase(Obj) {
+            tdElt.style.backgroundColor = 'none';
+            var imgElt = document.createElement('img');
+            imgElt.src = Obj.image;
+            tdElt.appendChild(imgElt);
+        }
+        
         for (var i = 0; i < nbRow; i++) {
 
             var trElt = document.createElement('tr');
             tbodyElt.appendChild(trElt);
 
-            //creation d'un deuxieme tableau 'row'
-            var tabRow = [];
+            var tabRow = [];//creation d'un deuxieme tableau 'row'
 
             for (var j = 0; j < nbCol; j++) {
 
@@ -99,38 +89,16 @@ class Game {
                 }, false);
 
                 //insertion des armes dans la map
-                if (tdElt.id === couteauObj.id) {
-                    tdElt.style.backgroundColor = 'none';
-                    var imgElt = document.createElement('img');
-                    imgElt.src = couteauObj.image;
-                    tdElt.appendChild(imgElt);
-                } else if (tdElt.id === pistoletObj.id) {
-                    tdElt.style.backgroundColor = 'none';
-                    var imgElt = document.createElement('img');
-                    imgElt.src = pistoletObj.image;
-                    tdElt.appendChild(imgElt);
-                } else if (tdElt.id === batteObj.id) {
-                    tdElt.style.backgroundColor = 'none';
-                    var imgElt = document.createElement('img');
-                    imgElt.src = batteObj.image;
-                    tdElt.appendChild(imgElt);
-                } else if (tdElt.id === tronconneuseObj.id) {
-                    tdElt.style.backgroundColor = 'none';
-                    var imgElt = document.createElement('img');
-                    imgElt.src = tronconneuseObj.image;
-                    tdElt.appendChild(imgElt);
-                } else if (tdElt.id === j1.id) {
-                    tdElt.style.backgroundColor = 'none';
-                    var imgElt = document.createElement('img');
-                    imgElt.src = j1.image;
-                    tdElt.appendChild(imgElt);
-                } else if (tdElt.id === j2.id) {
-                    tdElt.style.backgroundColor = 'none';
-                    var imgElt = document.createElement('img');
-                    imgElt.src = j2.image;
-                    tdElt.appendChild(imgElt);
-                } else {tdElt.style.backgroundColor = Outils.getRandomColor(nbCol)};
-
+                switch(tdElt.id){
+                    case couteauObj.id:setArrayCase(couteauObj);break;
+                    case pistoletObj.id:setArrayCase(pistoletObj);break;
+                    case batteObj.id:setArrayCase(batteObj);break;
+                    case tronconneuseObj.id:setArrayCase(tronconneuseObj);break;
+                    case j1.id:setArrayCase(j1);break;
+                    case j2.id:setArrayCase(j2);break;
+                    default:  tdElt.style.backgroundColor = Outils.getRandomColor(nbCol);
+                }
+                
                 //on peuple une ligne jusqu'à la fin de tour de boucle
                 tabRow.push(tdElt.id);
                 trElt.appendChild(tdElt);
