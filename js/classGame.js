@@ -1,5 +1,5 @@
 class Game {
-    creer(nbCol, nbRow, nom_j1, typePerso_j1, nom_j2, typePerso_j2) {
+    constructor(nbCol, nbRow, nom_j1, typePerso_j1, nom_j2, typePerso_j2) {
         
         this.nbCol = nbCol;
         this.nbRow = nbRow;
