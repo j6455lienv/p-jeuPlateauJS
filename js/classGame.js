@@ -83,11 +83,7 @@ class Game {
 
                 var tdElt = document.createElement('td');
                 tdElt.id = i + "-" + j;
-                //tdElt.innerHTML = i + "-" + j;
-                tdElt.addEventListener("click", function () {
-                    console.log('this.id = ' + this.id + ', this.backgroundColor = ' + this.style.backgroundColor);
-                }, false);
-
+                
                 //insertion des armes dans la map
                 switch(tdElt.id){
                     case couteauObj.id:setArrayCase(couteauObj);break;
@@ -98,15 +94,16 @@ class Game {
                     case j2.id:setArrayCase(j2);break;
                     default:  tdElt.style.backgroundColor = Outils.getRandomColor(nbCol);
                 }
-                
-                //on peuple une ligne jusqu'à la fin de tour de boucle
-                tabRow.push(tdElt.id);
+
+                tabRow.push(tdElt.id);//on peuple une ligne jusqu'à la fin de tour de boucle
                 trElt.appendChild(tdElt);
+                
+                tdElt.addEventListener("click", function () {
+                    console.log('this.id = ' + this.id + ', this.backgroundColor = ' + this.style.backgroundColor);
+                }, false);
             }
-            //chaque ligne cree vient peupler le tableau initial pour avoir un tableau de tableau
-            tab.push(tabRow);
+            tab.push(tabRow);//chaque ligne cree vient peupler le tableau initial pour avoir un tableau de tableau
         }
-        console.log(tab);//tableau 2D en console
-        //document.write(tab);
+        //console.log(tab);//tableau 2D en console
     }
 }

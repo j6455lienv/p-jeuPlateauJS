@@ -19,3 +19,11 @@ function demarrer(nom_j1, typePerso_j1, nom_j2, typePerso_j2) {
 function reset() {
     //comment faire ??
 }
+
+
+//
+//var tdEvent = document.getElementsByTagName('td');
+//tdEvent.addEventListener("click", function ()   {
+//    return this.id;
+//}, false);
+
