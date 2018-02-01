@@ -2,8 +2,26 @@ class Armes {
     constructor(id) {
         this.resistance = 100;
         this.id = id;
-        this.intRow = parseInt(id.substring(0, 1));
-        this.intCol = parseInt(id.substring(2, 3));
+    }
+
+    getIntRow(){//retourne un Integer corespondant à la ligne de l'id 'axe y'
+        var result = 0;
+        do{
+            result = parseInt(this.id.substring(0, 1));
+        }while(Number.isNaN(result)){
+            result = parseInt(this.id.substring(0, 1));
+        }
+        return result;
+    }
+
+    getIntCol(){//retourne un Integer corespondant à la colonne de l'id 'axe x'
+        var result = 0;
+        do{
+            result = parseInt(this.id.substring(2, 3));
+        }while(Number.isNaN(result)){
+            result = parseInt(this.id.substring(2, 3));
+        }
+        return result;
     }
 
     infligerDegat() {

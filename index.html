@@ -13,7 +13,30 @@
     <h1>Le Jeu</h1>
     <div id="form" class="container">
         <form action="" method="">
-            <h3>Selectionner Joueur 1</h3>
+            <h3>Select Level Game</h3>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0">Level Game</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="levelGame" id="levelGame"
+                                   value="Easy" checked/>
+                            <label class="form-check-label" for="levelGame">Easy</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="levelGame" id="levelGame"
+                                   value="Medium">
+                            <label class="form-check-label" for="levelGame">Medium</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="levelGame" id="levelGame"
+                                   value="Hard">
+                            <label class="form-check-label" for="levelGame">Hard</label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <h3>Player 1</h3>
             <div class="form-group row">
                 <label for="nom_j1" class="col-sm-2 col-form-label">Nom Joueur 1</label>
                 <div class="col-sm-10">
@@ -22,7 +45,7 @@
             </div>
             <fieldset class="form-group">
                 <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Perso</legend>
+                    <legend class="col-form-label col-sm-2 pt-0">Type Personnage</legend>
                     <div class="col-sm-10">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="typePerso1" id="typePerso_j1"
@@ -38,7 +61,7 @@
                 </div>
             </fieldset>
 
-            <h3>Selectionner Joueur 2</h3>
+            <h3>Player 2</h3>
             <div class="form-group row">
                 <label for="nom_j2" class="col-sm-2 col-form-label">Nom Joueur 2</label>
                 <div class="col-sm-10">
@@ -47,7 +70,7 @@
             </div>
             <fieldset class="form-group">
                 <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Perso</legend>
+                    <legend class="col-form-label col-sm-2 pt-0">Type Personnage</legend>
                     <div class="col-sm-10">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="typePerso2" id="typePerso_j2"
@@ -66,7 +89,7 @@
             <div class="form-group row">
                 <div class="col-sm-10">
                     <input type="button" value ="Valider" class="btn btn-primary"
-                           onclick="init(nom_j1, typePerso_j1, nom_j2, typePerso_j2)"/>
+                           onclick="init(nom_j1, typePerso_j1, nom_j2, typePerso_j2,levelGame)"/>
                 </div>
             </div>
         </form>
@@ -93,6 +116,7 @@
 <script src="js/classGame.js"></script>
 <script src="js/classPersos.js"></script>
 <script src="js/main.js"></script>
+
 
 </body>
 
