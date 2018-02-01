@@ -6,7 +6,7 @@ class Game {
         this.nom_j1 = nom_j1;
         this.typePerso_j1 = typePerso_j1;
         this.nom_j2 = nom_j2;
-        this.typePerso_j2 =typePerso_j2;        
+        this.typePerso_j2 = typePerso_j2;
 
         //gestion du DOM
         var getDivElt = document.getElementById('jeu');
@@ -34,6 +34,8 @@ class Game {
         console.log('Type de j1 : ' + this.typePerso_j1);
         console.log('Id de j1 : ' + j1.id);
         console.log('Img : ' + j1.image);
+        console.log('row : '+j1.intRow);
+        console.log('col : '+j1.intCol);
         console.log('...');
 
         console.log('-------Controle instance des joueurs2-------');
@@ -41,6 +43,8 @@ class Game {
         console.log('Type de j2 : ' + this.typePerso_j2);
         console.log('Id de j2 : ' + j2.id);
         console.log('Img : ' + j2.image);
+        console.log('row : '+j2.intRow);
+        console.log('col : '+j2.intCol);
         console.log('...');
         //*************************************************************************************//
 
