@@ -1,12 +1,31 @@
-//table parameters
-var insertNbRow = '';
-var insertNbCol = '';
-var recordFormObj = '';
-
-var btnReset = document.getElementById('btn-reset');
+var btnReset = document.getElementById('btn-reset');//bouton reset caché quand on est sur le formulaire
 btnReset.type = 'hidden';
 
+//déclaration des objet globaux pour constructeur Game
+var recordFormObj = '';//objet param
+var thatNom_j1 = '';
+var thatNom_j2 = '';
+var thatTypePerso_j1 = '';
+var thatTypePerso_j2 = '';
+
+var j1Obj = '';
+var j2Obj = '';
+var batteObj = '';
+var couteauObj = '';
+var pistoletObj = '';
+var tronconneuseObj = '';
+var game = '';//global game
+
 function init(nom_j1, typePerso_j1, nom_j2, typePerso_j2, levelGame) {//record des form data
+
+    thatNom_j1 = nom_j1;
+    thatNom_j2 = nom_j2;
+    thatTypePerso_j1 = typePerso_j1;
+    thatTypePerso_j2 = typePerso_j2;
+
+    var insertNbRow = '';
+    var insertNbCol = '';
+
     switch (levelGame.value) {
         case 'Easy':
             insertNbRow = 4, insertNbCol = 4;
@@ -18,8 +37,16 @@ function init(nom_j1, typePerso_j1, nom_j2, typePerso_j2, levelGame) {//record d
             insertNbRow = 10, insertNbCol = 10;
             break;
     }
-
-    if (nom_j1.value === '' || nom_j2.value === '') {//test si les nom sont rempli + affichage erreur
+    //on enregistre les valeurs de formulaire dans un objet
+    recordFormObj = {
+        "players":{
+                "j1":{"nom": nom_j1.value, "type": typePerso_j1.value},
+                "j2":{"nom": nom_j2.value,"type": typePerso_j2.value}
+            },
+        "paramTable":{"nbRow": insertNbRow,"nbCol": insertNbCol}
+    };
+//console.log(recordFormObj);
+    if (recordFormObj.players.j1.nom === '' || recordFormObj.players.j2.nom === '') {//test si les nom sont rempli + affichage erreur
         var formElt = document.getElementById('form');
         var divElt = document.createElement('div');
         var strongElt = document.createElement('strong');
@@ -29,30 +56,69 @@ function init(nom_j1, typePerso_j1, nom_j2, typePerso_j2, levelGame) {//record d
 
         divElt.insertBefore(strongElt, divElt.firstChild);//appendChild mais en mettant l'element en debut de liste du node parent
         formElt.insertBefore(divElt, formElt.firstChild);
-        window.setTimeout(function () {
+        window.setTimeout(function () {//compte a rebourd suppression alert
             divElt.innerHTML = '';
             divElt.className = '';
         }, 2200);
     } else {
-        recordFormObj = {
-            "j1": {"nom": nom_j1.value, "type": typePerso_j1.value},
-            "j2": {"nom": nom_j2.value, "type": typePerso_j2.value},
-        };
+        allInstanciations();
 
         document.getElementById('form').innerHTML = '';//on vide la page
         btnReset.type = 'button';
 
-        var game = new Game(insertNbRow, insertNbCol, nom_j1.value, typePerso_j1.value, nom_j2.value, typePerso_j2.value);//Initialisation d'un Jeu
+        game = new Game(recordFormObj, j1Obj, j2Obj, batteObj, couteauObj, pistoletObj, tronconneuseObj);//Initialisation d'un Jeu
+    }
+}
+
+function allInstanciations(){//permet d'instancier tous les objets du jeu
+    //instanciation joueurs
+    do {
+        switch (recordFormObj.players.j1.type) {
+            case 'Bourrin':j1Obj = new Bourrin(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol), recordFormObj.players.j1.nom);break;
+            case 'Mage':j1Obj = new Mage(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol), recordFormObj.players.j1.nom);break;
+        }
+        switch (recordFormObj.players.j2.type) {
+            case 'Bourrin':j2Obj = new Bourrin(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol), recordFormObj.players.j2.nom);break;
+            case 'Mage':j2Obj = new Mage(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol), recordFormObj.players.j2.nom);break;
+        }
+    } while (j1Obj.id === j2Obj.id)
+    {
+        switch (recordFormObj.players.j1.type) {
+            case 'Bourrin':j1Obj = new Bourrin(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol), recordFormObj.players.j1.nom);break;
+            case 'Mage':j1Obj = new Mage(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol), recordFormObj.players.j1.nom);break;
+        }
+        switch (recordFormObj.players.j2.type) {
+            case 'Bourrin':j2Obj = new Bourrin(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol), recordFormObj.players.j2.nom);break;
+            case 'Mage':j2Obj = new Mage(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol), recordFormObj.players.j2.nom);break;
+        }
+    }
+
+    //instanciation armes
+    do {
+        batteObj = new Batte(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol));
+        couteauObj = new Couteau(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol));
+        pistoletObj = new Pistolet(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol));
+        tronconneuseObj = new Tronconneuse(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol));
+    } while (couteauObj.id === pistoletObj.id
+        || couteauObj.id === batteObj.id
+        || couteauObj.id === tronconneuseObj.id
+        || pistoletObj.id === batteObj.id
+        || pistoletObj.id === tronconneuseObj.id
+        || tronconneuseObj.id === batteObj.id
+        )
+    {
+        batteObj = new Batte(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol));
+        couteauObj = new Couteau(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol));
+        pistoletObj = new Pistolet(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol));
+        tronconneuseObj = new Tronconneuse(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol));
     }
 }
 
 function reset() {
-    //var loadRecordFormObj = recordFormObj;
     console.clear();
     document.getElementById('jeu').innerHTML = '';//on vide le jeu
-    var game = new Game(insertNbRow, insertNbCol, recordFormObj.j1.nom, recordFormObj.j1.type, recordFormObj.j2.nom, recordFormObj.j2.type);//Initialisation d'un Jeu
+
+    allInstanciations();
+
+    game = new Game(recordFormObj, j1Obj, j2Obj, batteObj, couteauObj, pistoletObj, tronconneuseObj);//Initialisation d'un Jeu
 }
-
-
-
-

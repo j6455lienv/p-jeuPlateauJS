@@ -1,12 +1,12 @@
 class Game {
-    constructor(nbRow, nbCol, nom_j1, typePerso_j1, nom_j2, typePerso_j2) {
+    constructor(recordFormObj, j1Obj, j2Obj, batteObj, couteauObj, pistoletObj, tronconneuseObj) {
 
-        this.nbRow = nbRow;
-        this.nbCol = nbCol;
-        this.nom_j1 = nom_j1;
-        this.typePerso_j1 = typePerso_j1;
-        this.nom_j2 = nom_j2;
-        this.typePerso_j2 = typePerso_j2;
+        this.nbRow = recordFormObj.paramTable.nbRow;
+        this.nbCol = recordFormObj.paramTable.nbCol;
+        this.nom_j1 = recordFormObj.players.j1.nom;
+        this.typePerso_j1 = recordFormObj.players.j1.type;
+        this.nom_j2 = recordFormObj.players.j2.nom;
+        this.typePerso_j2 = recordFormObj.players.j2.type;
 
         //gestion du DOM
         var getDivElt = document.getElementById('jeu');
@@ -15,51 +15,7 @@ class Game {
         var tbodyElt = document.createElement('tbody');
         tableElt.appendChild(tbodyElt);
         getDivElt.appendChild(tableElt);
-        
-        //instanciation joueurs
-        //******************nouveau-creation d'instance perso depuis formulaire html***********//
-        var j1 = '';
-        var j2 = '';
 
-        do{
-        switch(this.typePerso_j1){
-            case 'Bourrin':j1 = new Bourrin(Outils.getRandomId(this.nbCol, this.nbRow), this.nom_j1);break;
-            case 'Mage':j1 = new Mage(Outils.getRandomId(this.nbCol, this.nbRow), this.nom_j1);break;
-        }
-        switch(this.typePerso_j2){
-            case 'Bourrin':j2 = new Bourrin(Outils.getRandomId(this.nbCol, this.nbRow), this.nom_j2);break;
-            case 'Mage':j2 = new Mage(Outils.getRandomId(this.nbCol, this.nbRow), this.nom_j2);break;
-        }
-        }while(j1.id === j2.id){
-            switch(this.typePerso_j1){
-                case 'Bourrin':j1 = new Bourrin(Outils.getRandomId(this.nbCol, this.nbRow), this.nom_j1);break;
-                case 'Mage':j1 = new Mage(Outils.getRandomId(this.nbCol, this.nbRow), this.nom_j1);break;
-            }
-            switch(this.typePerso_j2){
-                case 'Bourrin':j2 = new Bourrin(Outils.getRandomId(this.nbCol, this.nbRow), this.nom_j2);break;
-                case 'Mage':j2 = new Mage(Outils.getRandomId(this.nbCol, this.nbRow), this.nom_j2);break;
-            }
-        }
-
-        //instanciation armes
-        do{
-        var couteauObj = new Couteau(Outils.getRandomId(nbCol, nbRow));
-        var pistoletObj = new Pistolet(Outils.getRandomId(nbCol, nbRow));
-        var batteObj = new Batte(Outils.getRandomId(nbCol, nbRow));
-        var tronconneuseObj = new Tronconneuse(Outils.getRandomId(nbCol, nbRow));
-        }while(couteauObj.id === pistoletObj.id
-            || couteauObj.id === batteObj.id
-            || couteauObj.id === tronconneuseObj.id
-            || pistoletObj.id === batteObj.id
-            || pistoletObj.id === tronconneuseObj.id
-            || tronconneuseObj.id === batteObj.id
-            ){
-            couteauObj = new Couteau(Outils.getRandomId(nbCol, nbRow));
-            pistoletObj = new Pistolet(Outils.getRandomId(nbCol, nbRow));
-            batteObj = new Batte(Outils.getRandomId(nbCol, nbRow));
-            tronconneuseObj = new Tronconneuse(Outils.getRandomId(nbCol, nbRow));
-        }
-        
         var tab = [];//creation d'un tableau 'qui ne sert a rien pour le moment'
 
         function setArrayCase(Obj) {
@@ -69,34 +25,34 @@ class Game {
             tdElt.appendChild(imgElt);
         }
         
-        for (var i = 0; i < nbRow; i++) {
+        for (var i = 0; i < this.nbRow; i++) {
 
             var trElt = document.createElement('tr');
             tbodyElt.appendChild(trElt);
 
             var tabRow = [];//creation d'un deuxieme tableau 'row'
 
-            for (var j = 0; j < nbCol; j++) {
+            for (var j = 0; j < this.nbCol; j++) {
 
                 var tdElt = document.createElement('td');
                 tdElt.id = i + "-" + j;
                 
                 //insertion des armes dans la map
                 switch(tdElt.id){
+                    case batteObj.id:setArrayCase(batteObj);break;
                     case couteauObj.id:setArrayCase(couteauObj);break;
                     case pistoletObj.id:setArrayCase(pistoletObj);break;
-                    case batteObj.id:setArrayCase(batteObj);break;
                     case tronconneuseObj.id:setArrayCase(tronconneuseObj);break;
-                    case j1.id:setArrayCase(j1);break;
-                    case j2.id:setArrayCase(j2);break;
-                    default:  tdElt.style.backgroundColor = Outils.getRandomColor(nbCol);
+                    case j1Obj.id:setArrayCase(j1Obj);break;
+                    case j2Obj.id:setArrayCase(j2Obj);break;
+                    default:  tdElt.style.backgroundColor = Outils.getRandomColor(this.nbCol);
                 }
 
                 tabRow.push(tdElt.id);//on peuple une ligne jusqu'à la fin de tour de boucle
                 trElt.appendChild(tdElt);
-                
-                tdElt.addEventListener("click", function () {
-                    console.log('this.id = ' + this.id + ', this.backgroundColor = ' + this.style.backgroundColor);
+
+                tdElt.addEventListener("click", function(){
+                    console.log(this.id);
                 }, false);
             }
             tab.push(tabRow);//chaque ligne cree vient peupler le tableau initial pour avoir un tableau de tableau
@@ -105,20 +61,20 @@ class Game {
 
         console.log('****************');
         console.log('****Player 1****');
-        console.log('Nom du j1 : ' + j1.name);
-        console.log('Type de j1 : ' + j1.type);
-        console.log('Id de j1 : ' + j1.id);
-        console.log('Img : ' + j1.image);
-        console.log('row : '+j1.getIntRow());
-        console.log('col : '+j1.getIntCol());
+        console.log('Nom du j1 : ' + j1Obj.name);
+        console.log('Type de j1 : ' + j1Obj.type);
+        console.log('Id de j1 : ' + j1Obj.id);
+        console.log('Img : ' + j1Obj.image);
+        console.log('row : '+Outils.getIntRow(j1Obj.id));
+        console.log('col : '+Outils.getIntCol(j1Obj.id));
         console.log('...');
         console.log('****Player 2****');
-        console.log('Nom du j2 : ' + j2.name);
-        console.log('Type de j2 : ' + j2.type);
-        console.log('Id de j2 : ' + j2.id);
-        console.log('Img : ' + j2.image);
-        console.log('j2.intRow : '+j2.getIntRow());
-        console.log('j2.intCol : '+j2.getIntCol());
+        console.log('Nom du j2 : ' + j2Obj.name);
+        console.log('Type de j2 : ' + j2Obj.type);
+        console.log('Id de j2 : ' + j2Obj.id);
+        console.log('Img : ' + j2Obj.image);
+        console.log('j2.intRow : '+Outils.getIntRow(j2Obj.id));
+        console.log('j2.intCol : '+Outils.getIntCol(j2Obj.id));
         console.log('****************');
         console.log('****Arme****');
         console.log("id couteau : " + couteauObj.id);
@@ -126,14 +82,13 @@ class Game {
         console.log("id batte : " + batteObj.id);
         console.log("id tronconneuse : " + tronconneuseObj.id);
         console.log('...');
-        console.log('couteauObj, row : ' + couteauObj.getIntRow());
-        console.log('couteauObj, col : ' + couteauObj.getIntCol());
-        console.log('pistoletObj, row : ' + pistoletObj.getIntRow());
-        console.log('pistoletObj, col : ' + pistoletObj.getIntCol());
-        console.log('batteObj, row : ' + batteObj.getIntRow());
-        console.log('batteObj, col : ' + batteObj.getIntCol());
-        console.log('tronconneuseObj, row : ' + tronconneuseObj.getIntRow());
-        console.log('tronconneuseObj, col : ' + tronconneuseObj.getIntCol());
+        console.log('couteauObj, row : ' + Outils.getIntRow(couteauObj.id));
+        console.log('couteauObj, col : ' + Outils.getIntCol(couteauObj.id));
+        console.log('pistoletObj, row : ' + Outils.getIntRow(pistoletObj.id));
+        console.log('pistoletObj, col : ' + Outils.getIntCol(pistoletObj.id));
+        console.log('batteObj, row : ' + Outils.getIntRow(batteObj.id));
+        console.log('batteObj, col : ' + Outils.getIntCol(batteObj.id));
+        console.log('tronconneuseObj, row : ' + Outils.getIntRow(tronconneuseObj.id));
+        console.log('tronconneuseObj, col : ' + Outils.getIntCol(tronconneuseObj.id));
     }
-
 }
