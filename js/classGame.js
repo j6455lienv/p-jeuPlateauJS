@@ -18,13 +18,6 @@ class Game {
 
         var tab = [];//creation d'un tableau 'qui ne sert a rien pour le moment'
 
-        function setArrayCase(Obj) {
-            tdElt.style.backgroundColor = 'none';
-            var imgElt = document.createElement('img');
-            imgElt.src = Obj.image;
-            tdElt.appendChild(imgElt);
-        }
-        
         for (var i = 0; i < this.nbRow; i++) {
 
             var trElt = document.createElement('tr');
@@ -36,24 +29,23 @@ class Game {
 
                 var tdElt = document.createElement('td');
                 tdElt.id = i + "-" + j;
-                
+
+                //function raffraichirTable(){
                 //insertion des armes dans la map
-                switch(tdElt.id){
-                    case batteObj.id:setArrayCase(batteObj);break;
-                    case couteauObj.id:setArrayCase(couteauObj);break;
-                    case pistoletObj.id:setArrayCase(pistoletObj);break;
-                    case tronconneuseObj.id:setArrayCase(tronconneuseObj);break;
-                    case j1Obj.id:setArrayCase(j1Obj);break;
-                    case j2Obj.id:setArrayCase(j2Obj);break;
-                    default:  tdElt.style.backgroundColor = Outils.getRandomColor(this.nbCol);
-                }
+                    switch(tdElt.id){
+                        case batteObj.id:Game.setArrayCase(batteObj, tdElt);break;
+                        case couteauObj.id:Game.setArrayCase(couteauObj, tdElt);break;
+                        case pistoletObj.id:Game.setArrayCase(pistoletObj, tdElt);break;
+                        case tronconneuseObj.id:Game.setArrayCase(tronconneuseObj, tdElt);break;
+                        case j1Obj.id:Game.setArrayCase(j1Obj, tdElt);break;
+                        case j2Obj.id:Game.setArrayCase(j2Obj, tdElt);break;
+                        default:  tdElt.style.backgroundColor = Outils.getRandomColor(this.nbCol);
+                    }
+                //}
+                //raffraichirTable();
 
                 tabRow.push(tdElt.id);//on peuple une ligne jusqu'à la fin de tour de boucle
                 trElt.appendChild(tdElt);
-
-                tdElt.addEventListener("click", function(){
-                    console.log(this.id);
-                }, false);
             }
             tab.push(tabRow);//chaque ligne cree vient peupler le tableau initial pour avoir un tableau de tableau
         }
@@ -90,5 +82,11 @@ class Game {
         console.log('batteObj, col : ' + Outils.getIntCol(batteObj.id));
         console.log('tronconneuseObj, row : ' + Outils.getIntRow(tronconneuseObj.id));
         console.log('tronconneuseObj, col : ' + Outils.getIntCol(tronconneuseObj.id));
+    }
+    static setArrayCase(Obj, tdElt) {
+        tdElt.style.backgroundColor = 'none';
+        var imgElt = document.createElement('img');
+        imgElt.src = Obj.image;
+        tdElt.appendChild(imgElt);
     }
 }

@@ -44,4 +44,23 @@ class Outils {
         }
         return result;
     }
+
+    //retourn un message d'erreur dynamic 'alert' puis s'efface
+    static errorMessage(stringMess) {
+        var formElt = document.getElementById('form');
+        var divElt = document.createElement('div');
+        var strongElt = document.createElement('strong');
+        strongElt.innerHTML = 'Erreur :';
+        divElt.className = 'alert alert-danger';
+        divElt.style.position = 'absolute';
+
+        divElt.innerHTML = stringMess;
+        divElt.insertBefore(strongElt, divElt.firstChild);//appendChild mais en mettant l'element en debut de liste du node parent
+        formElt.insertBefore(divElt, formElt.firstChild);
+
+        window.setTimeout(function () {//compte a rebourd suppression alert
+            divElt.innerHTML = '';
+            divElt.className = '';
+        }, 2200);
+    }
 }

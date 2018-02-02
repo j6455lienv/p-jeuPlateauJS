@@ -3,10 +3,6 @@ btnReset.type = 'hidden';
 
 //déclaration des objet globaux pour constructeur Game
 var recordFormObj = '';//objet param
-var thatNom_j1 = '';
-var thatNom_j2 = '';
-var thatTypePerso_j1 = '';
-var thatTypePerso_j2 = '';
 
 var j1Obj = '';
 var j2Obj = '';
@@ -17,11 +13,6 @@ var tronconneuseObj = '';
 var game = '';//global game
 
 function init(nom_j1, typePerso_j1, nom_j2, typePerso_j2, levelGame) {//record des form data
-
-    thatNom_j1 = nom_j1;
-    thatNom_j2 = nom_j2;
-    thatTypePerso_j1 = typePerso_j1;
-    thatTypePerso_j2 = typePerso_j2;
 
     var insertNbRow = '';
     var insertNbCol = '';
@@ -46,20 +37,9 @@ function init(nom_j1, typePerso_j1, nom_j2, typePerso_j2, levelGame) {//record d
         "paramTable":{"nbRow": insertNbRow,"nbCol": insertNbCol}
     };
 //console.log(recordFormObj);
-    if (recordFormObj.players.j1.nom === '' || recordFormObj.players.j2.nom === '') {//test si les nom sont rempli + affichage erreur
-        var formElt = document.getElementById('form');
-        var divElt = document.createElement('div');
-        var strongElt = document.createElement('strong');
-        strongElt.innerHTML = 'Erreur :';
-        divElt.className = 'alert alert-danger';
-        divElt.innerHTML = ' Vous devez renseigner un nom pour chacun des joueurs';
 
-        divElt.insertBefore(strongElt, divElt.firstChild);//appendChild mais en mettant l'element en debut de liste du node parent
-        formElt.insertBefore(divElt, formElt.firstChild);
-        window.setTimeout(function () {//compte a rebourd suppression alert
-            divElt.innerHTML = '';
-            divElt.className = '';
-        }, 2200);
+    if (recordFormObj.players.j1.nom === '' || recordFormObj.players.j2.nom === '') {//test si les nom sont rempli + affichage erreur
+        Outils.errorMessage(' Vous devez renseigner un nom pour chacun des joueurs');
     } else {
         allInstanciations();
 
@@ -72,7 +52,7 @@ function init(nom_j1, typePerso_j1, nom_j2, typePerso_j2, levelGame) {//record d
 
 function allInstanciations(){//permet d'instancier tous les objets du jeu
     //instanciation joueurs
-    do {
+    do {//controle id
         switch (recordFormObj.players.j1.type) {
             case 'Bourrin':j1Obj = new Bourrin(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol), recordFormObj.players.j1.nom);break;
             case 'Mage':j1Obj = new Mage(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol), recordFormObj.players.j1.nom);break;
@@ -94,7 +74,7 @@ function allInstanciations(){//permet d'instancier tous les objets du jeu
     }
 
     //instanciation armes
-    do {
+    do {//controle id
         batteObj = new Batte(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol));
         couteauObj = new Couteau(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol));
         pistoletObj = new Pistolet(Outils.getRandomId(recordFormObj.paramTable.nbRow, recordFormObj.paramTable.nbCol));
@@ -117,8 +97,11 @@ function allInstanciations(){//permet d'instancier tous les objets du jeu
 function reset() {
     console.clear();
     document.getElementById('jeu').innerHTML = '';//on vide le jeu
-
     allInstanciations();
-
     game = new Game(recordFormObj, j1Obj, j2Obj, batteObj, couteauObj, pistoletObj, tronconneuseObj);//Initialisation d'un Jeu
 }
+
+//jQuery selecteur sur chacun des td
+$(document).on("click", ".table td", function() {
+    j1Obj.seDeplacerVers($(this).attr('id'));//se deplacer vers nouvelle id
+});
