@@ -10,17 +10,17 @@ class Outils {
     }
 
     //Retourne couleur 'grey' ou 'none'
-    static getRandomColor(nbCol) {
-        var color;
+    static getRandomClassName(nbCol) {
+        var className = '';
         var booleanRandom = Math.floor(Math.random() * nbCol); //randomisation, est égale à un nombre entre 0 et nbCol passé en parametre lors de l'instanciation map
         //        console.log("Nombre boolean = "+booleanRandom);
         if (booleanRandom === 0 || booleanRandom === 1 /*|| booleanRandom == 2*/ ) //permet d'avoir que 30% de case grisées
         {
-            color = 'grey';
+            className = 'caseInterdite';
         } else {
-            color = 'none';
+            className = 'none';
         }
-        return color;
+        return className;
     }
 
     //Retourne la row (Integer) de l'id en param
@@ -52,8 +52,8 @@ class Outils {
         var strongElt = document.createElement('strong');
         strongElt.innerHTML = 'Erreur :';
         divElt.className = 'alert alert-danger';
-        divElt.style.position = 'absolute';
-
+          
+        //divElt.style.position = 'absolute';
         divElt.innerHTML = stringMess;
         divElt.insertBefore(strongElt, divElt.firstChild);//appendChild mais en mettant l'element en debut de liste du node parent
         formElt.insertBefore(divElt, formElt.firstChild);
@@ -62,5 +62,9 @@ class Outils {
             divElt.innerHTML = '';
             divElt.className = '';
         }, 2200);
+    }
+    
+    static setDisplayGame(str) {
+        $('.displayText').attr('value', str);
     }
 }

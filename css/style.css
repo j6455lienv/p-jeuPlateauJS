@@ -12,3 +12,13 @@ img{
     width: auto;
     height: 50px;
 }
+
+/* case griséee */
+.caseInterdite{
+    background-color: rgb(142,140,140);
+}
+
+/* affichage IHM */
+.display{
+    visibility: hidden;
+}

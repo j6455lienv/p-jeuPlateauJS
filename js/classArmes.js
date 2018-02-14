@@ -2,6 +2,7 @@ class Armes {
     constructor(id) {
         this.resistance = 100;
         this.id = id;
+        this.image = '';
     }
 
     infligerDegat() {
