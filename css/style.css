@@ -1,24 +1,24 @@
-td:hover{
+td:hover {
     background-color: aqua;
 }
 
-td{
+td {
     width: 90px;
     height: 70px;
-    border : 1px solide black;
+    border: 1px solide black;
 }
 
-img{
+img {
     width: auto;
     height: 50px;
 }
 
 /* case griséee */
-.caseInterdite{
-    background-color: rgb(142,140,140);
+.caseInterdite {
+    background-color: rgb(142, 140, 140);
 }
 
 /* affichage IHM */
-.display{
+.display {
     visibility: hidden;
 }

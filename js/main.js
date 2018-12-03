@@ -1,5 +1,5 @@
-var btnReset = document.getElementById('btn-reset'); //bouton reset caché quand on est sur le formulaire
-btnReset.type = 'hidden';
+var $btnReset = $('#btn-reset'); //bouton reset caché quand on est sur le formulaire
+$btnReset.hide();
 
 //déclaration des objet globaux pour constructeur Game
 var recordFormObj = ''; //objet param
@@ -13,7 +13,7 @@ var tronconneuseObj = '';
 var game = ''; //global game
 var compteur = 0; //gere le tour à tour
 
-function init(nom_j1, typePerso_j1, nom_j2, typePerso_j2, levelGame) { //record des form data
+function init(nom_j1, typePerso_j1, nom_j2, typePerso_j2, levelGame) {
 
 	compteur = 0;
 	var insertNbRow = '';
@@ -49,14 +49,13 @@ function init(nom_j1, typePerso_j1, nom_j2, typePerso_j2, levelGame) { //record 
 		}
 	};
 
-	//console.log(recordFormObj);
 	if (recordFormObj.players.j1.nom === '' || recordFormObj.players.j2.nom === '') { //test si les nom sont rempli + affichage erreur
 		Outils.errorMessage(' Vous devez renseigner un nom pour chacun des joueurs');
 	} else {
 		allInstanciations();
 
 		document.getElementById('form').innerHTML = ''; //on vide la page
-		btnReset.type = 'button';
+		$btnReset.show();
 
 		game = new Game(recordFormObj, j1Obj, j2Obj, batteObj, couteauObj, pistoletObj, tronconneuseObj); //Initialisation d'un Jeu
 	}
@@ -75,7 +74,10 @@ function init(nom_j1, typePerso_j1, nom_j2, typePerso_j2, levelGame) { //record 
 	});
 }
 
-function allInstanciations() { //permet d'instancier tous les objets du jeu
+/** 
+ * Instancier tous les objets du jeu
+ */
+function allInstanciations() {
 	//instanciation joueurs
 	do { //controle id
 		switch (recordFormObj.players.j1.type) {
